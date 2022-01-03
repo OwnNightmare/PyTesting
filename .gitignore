@@ -2,3 +2,4 @@
 py-homeworks-advanced
 .idea
 preparing.py
+__pycache__/

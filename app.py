@@ -10,7 +10,7 @@ directories = {
 }
 
 
-def check_document_existence(user_doc_number):
+def check_document_existence(user_doc_number):  # test is ready
     doc_founded = False
     for current_document in documents:
         doc_number = current_document['number']
@@ -20,7 +20,7 @@ def check_document_existence(user_doc_number):
     return doc_founded
 
 
-def get_doc_owner_name():
+def get_doc_owner_name():  # test is ready
     user_doc_number = input('Введите номер документа - ')
     print()
     doc_exist = check_document_existence(user_doc_number)
@@ -42,7 +42,7 @@ def get_all_doc_owners_names():
     return set(users_list)
 
 
-def remove_doc_from_shelf(doc_number):
+def remove_doc_from_shelf(doc_number):  # test is ready
     for directory_number, directory_docs_list in directories.items():
         if doc_number in directory_docs_list:
             directory_docs_list.remove(doc_number)
@@ -58,12 +58,13 @@ def add_new_shelf(shelf_number=''):
     return shelf_number, False
 
 
-def append_doc_to_shelf(doc_number, shelf_number):
+def append_doc_to_shelf(doc_number, shelf_number):  # test is ready
     add_new_shelf(shelf_number)
     directories[shelf_number].append(doc_number)
+    return directories
 
 
-def delete_doc():
+def delete_doc():  # test is done
     user_doc_number = input('Введите номер документа - ')
     doc_exist = check_document_existence(user_doc_number)
     if doc_exist:
