@@ -3,6 +3,8 @@ from app import check_document_existence, get_doc_owner_name, remove_doc_from_sh
 import app
 import mock
 import builtins
+import unittest
+from Yandex_module import make_folder, delete_folder, get_files_list
 
 BIG_DATA = {}
 
@@ -43,5 +45,27 @@ class TestSecretaryProg:
         with mock.patch.object(target=app, attribute='remove_doc_from_shelf'):
             assert remove_doc_from_shelf(doc_num) == dict_values
 
+
+class TestYanAPI(unittest.TestCase):
+
+    valid_token = ''  # Здесь Ваш Яндекс-токен
+    invalid_token = 'BadYandexToken'
+    new_folder_in_root = 'test_folder'
+    root = '/'
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        make_folder(TestYanAPI.valid_token, TestYanAPI.new_folder_in_root)
+
+    def test_get_files_list(self):
+        self.assert_('test_folder' in get_files_list(TestYanAPI.valid_token, TestYanAPI.root))
+
+    def test_make_folder(self):
+        self.assertEqual(make_folder(TestYanAPI.invalid_token, TestYanAPI.new_folder_in_root), 401)
+        self.assertEqual(make_folder(TestYanAPI.valid_token, TestYanAPI.new_folder_in_root), 201)
+        self.assertEqual(make_folder(TestYanAPI.valid_token, TestYanAPI.new_folder_in_root), 409)
+
+    def tearDown(self) -> None:
+        delete_folder(TestYanAPI.valid_token, TestYanAPI.new_folder_in_root)
 
 

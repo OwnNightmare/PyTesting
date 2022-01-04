@@ -171,5 +171,5 @@ def secretary_program_start():
             break
 
 
-# if __name__ == '__main__':
-#     secretary_program_start()
+if __name__ == '__main__':
+    secretary_program_start()
